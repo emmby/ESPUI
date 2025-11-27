@@ -603,78 +603,105 @@ function start() {
              * Update messages change the value/style of a component without adding new HTML
              */
             case UPDATE_LABEL:
-                $("#l" + data.id).html(data.value);
+                var el = $("#l" + data.id);
+                el.html(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#l" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#l" + data.id).attr("class", "label label-wrap " + data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
             case UPDATE_SWITCHER:
                 switcher(data.id, data.value == "0" ? 0 : 1);
+                var el = $("#sl" + data.id);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#sl" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var el = $("#sl" + data.id);
-                    el.attr("class", "switch " + (el.hasClass("checked") ? "checked " : "") + (el.hasClass("vert-switcher") ? "vert-switcher " : "") + data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
             case UPDATE_SLIDER:
-                $("#sl" + data.id).attr("value", data.value)
-                slider_move($("#sl" + data.id).parent().parent(), data.value, "100", false);
+                var el = $("#sl" + data.id);
+                el.attr("value", data.value)
+                slider_move(el.parent().parent(), data.value, "100", false);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#sl" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#sl" + data.id).attr("class", "range-slider__range " + data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
             case UPDATE_NUMBER:
-                $("#num" + data.id).val(data.value);
+                var el = $("#num" + data.id);
+                el.val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#num" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#num" + data.id).attr("class", data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
             case UPDATE_TEXT_INPUT:
-                $("#text" + data.id).val(data.value);
+                var el = $("#text" + data.id);
+                el.val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#text" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#text" + data.id).attr("class", data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 if (data.hasOwnProperty('inputType')) {
-                    $("#text" + data.id).attr("type", data.inputType);
+                    el.attr("type", data.inputType);
                 }
                 break;
 
             case UPDATE_SELECT:
-                $("#select" + data.id).val(data.value);
+                var el = $("#select" + data.id);
+                el.val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#select" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#select" + data.id).attr("class", data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
             case UPDATE_BUTTON:
-                $("#btn" + data.id).val(data.value);
-                $("#btn" + data.id).text(data.value);
+                var el = $("#btn" + data.id);
+                el.val(data.value);
+                el.text(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#btn" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#btn" + data.id).attr("class", data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
 
@@ -682,12 +709,16 @@ function start() {
             case UPDATE_CPAD:
                 break;
             case UPDATE_GAUGE:
-                $("#gauge" + data.id).val(data.value);
+                var el = $("#gauge" + data.id);
+                el.val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
-                    $("#gauge" + data.id).attr("style", data.elementStyle);
+                    el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    $("#gauge" + data.id).attr("class", data.elementClass);
+                    var oldClass = el.data("last-element-class");
+                    if (oldClass) el.removeClass(oldClass);
+                    el.addClass(data.elementClass);
+                    el.data("last-element-class", data.elementClass);
                 }
                 break;
             case UPDATE_ACCEL:
@@ -811,7 +842,10 @@ function start() {
 
             if (data.hasOwnProperty('panelClass')) {
                 var el = $("#id" + data.id);
-                el.attr("class", "two columns " + (el.hasClass("wide") ? "wide " : "") + "card tcenter " + colorClass(data.color) + " " + data.panelClass);
+                var oldClass = el.data("last-panel-class");
+                if (oldClass) el.removeClass(oldClass);
+                el.addClass(data.panelClass);
+                el.data("last-panel-class", data.panelClass);
             }
 
             if (data.hasOwnProperty('visible')) {
