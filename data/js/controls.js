@@ -607,12 +607,21 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#l" + data.id).attr("style", data.elementStyle);
                 }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#l" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
+                }
                 break;
 
             case UPDATE_SWITCHER:
                 switcher(data.id, data.value == "0" ? 0 : 1);
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#sl" + data.id).attr("style", data.elementStyle);
+                }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#sl" + data.id);
+                    var isChecked = el.hasClass("checked");
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + (isChecked ? " checked" : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -622,6 +631,10 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#sl" + data.id).attr("style", data.elementStyle);
                 }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#sl" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
+                }
                 break;
 
             case UPDATE_NUMBER:
@@ -629,12 +642,20 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#num" + data.id).attr("style", data.elementStyle);
                 }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#num" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
+                }
                 break;
 
             case UPDATE_TEXT_INPUT:
                 $("#text" + data.id).val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#text" + data.id).attr("style", data.elementStyle);
+                }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#text" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 if (data.hasOwnProperty('inputType')) {
                     $("#text" + data.id).attr("type", data.inputType);
@@ -646,6 +667,10 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#select" + data.id).attr("style", data.elementStyle);
                 }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#select" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
+                }
                 break;
 
             case UPDATE_BUTTON:
@@ -653,6 +678,10 @@ function start() {
                 $("#btn" + data.id).text(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#btn" + data.id).attr("style", data.elementStyle);
+                }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#btn" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -663,6 +692,10 @@ function start() {
                 $("#gauge" + data.id).val(data.value);
                 if (data.hasOwnProperty('elementStyle')) {
                     $("#gauge" + data.id).attr("style", data.elementStyle);
+                }
+                if (data.hasOwnProperty('elementClass')) {
+                    var el = $("#gauge" + data.id);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
             case UPDATE_ACCEL:
@@ -782,6 +815,10 @@ function start() {
 
             if (data.hasOwnProperty('panelStyle')) {
                 $("#id" + data.id).attr("style", data.panelStyle);
+            }
+
+            if (data.hasOwnProperty('labelClass')) {
+                $("#id" + data.id + " h5").attr("class", data.labelClass);
             }
 
             if (data.hasOwnProperty('visible')) {
@@ -991,6 +1028,7 @@ var rangeSlider = function (isDiscrete) {
 var addToHTML = function (data) {
     panelStyle = data.hasOwnProperty('panelStyle') ? " style='" + data.panelStyle + "' " : "";
     panelwide = data.hasOwnProperty('wide') ? "wide" : "";
+    labelClass = data.hasOwnProperty('labelClass') ? " class='" + data.labelClass + "' " : "";
 
     if (!data.hasOwnProperty('parentControl') || $("#tab" + data.parentControl).length > 0) {
         //We add the control with its own panel
@@ -1014,14 +1052,14 @@ var addToHTML = function (data) {
             case UI_ACCEL:
             case UI_FILEDISPLAY:
                 html = "<div id='id" + data.id + "' " + panelStyle + " class='two columns " + panelwide + " card tcenter " +
-                    colorClass(data.color) + "'><h5>" + data.label + "</h5><hr/>" +
+                    colorClass(data.color) + "'><h5" + labelClass + ">" + data.label + "</h5><hr/>" +
                     elementHTML(data) +
                     "</div>";
                 break;
 
             case UI_SEPARATOR:
                 html = "<div id='id" + data.id + "' " + panelStyle + " class='sectionbreak columns'>" +
-                    "<h5>" + data.label + "</h5><hr/></div>";
+                    "<h5" + labelClass + ">" + data.label + "</h5><hr/></div>";
                 break;
             case UI_TIME:
                 //Invisible element
@@ -1040,30 +1078,34 @@ var addToHTML = function (data) {
 var elementHTML = function (data) {
     var id = data.id
     var elementStyle = data.hasOwnProperty('elementStyle') ? " style='" + data.elementStyle + "' " : "";
+    var elementClass = data.hasOwnProperty('elementClass') ? " " + data.elementClass + " " : "";
     var inputType = data.hasOwnProperty('inputType') ? " type='" + data.inputType + "' " : "";
     switch (data.type) {
         case UI_LABEL:
             return "<span id='l" + id + "' " + elementStyle +
-                " class='label label-wrap'>" + data.value + "</span>";
+                " data-base-class='label label-wrap' class='label label-wrap" + elementClass + "'>" + data.value + "</span>";
         case UI_FILEDISPLAY:
             return "<textarea id='fd" + id + "' rows='4' " + elementStyle +
                 " class='label label-wrap'>" + "</textarea>";
         case UI_BUTTON:
             return "<button id='btn" + id + "' " + elementStyle +
+                " data-base-class=''" +
+                " class='" + elementClass + "'" +
                 " onmousedown='buttonclick(" + id + ", true)'" +
                 " onmouseup='buttonclick(" + id + ", false)'>" +
                 data.value + "</button>";
         case UI_SWITCHER:
             return "<label id='sl" + id + "' " + elementStyle +
+                " data-base-class='switch " + (data.hasOwnProperty('vertical') ? " vert-switcher " : "") + "'" +
                 " class='switch " + (data.value == "1" ? "checked" : "") +
-                (data.hasOwnProperty('vertical') ? " vert-switcher " : "") +
+                (data.hasOwnProperty('vertical') ? " vert-switcher " : "") + elementClass +
                 "'>" +
                 "<div class='in'>" +
                 "<input type='checkbox' id='s" + id + "' onClick='switcher(" + id + ",null)' " +
                 (data.value == "1" ? "checked" : "") + "/></div></label>";
         case UI_CPAD:
         case UI_PAD:
-            return "<nav class='control'><ul>" +
+            return "<nav class='control " + elementClass + "'><ul>" +
                 "<li><a onmousedown='padclick(UP, " + id + ", true)' " +
                 "onmouseup='padclick(UP, " + id + ", false)' id='pf" + id + "'>&#9650;</a></li>" +
                 "<li><a onmousedown='padclick(RIGHT, " + id + ", true)' " +
@@ -1083,22 +1125,30 @@ var elementHTML = function (data) {
                 (data.hasOwnProperty('vertical') ? " vert-slider " : "") +
                 "'>" +
                 "<input id='sl" + id + "' type='range' min='0' max='100' value='" + data.value + "' " +
-                elementStyle + " class='range-slider__range'><span class='range-slider__value'>" +
+                elementStyle + " data-base-class='range-slider__range' class='range-slider__range" + elementClass + "'><span class='range-slider__value'>" +
                 data.value + "</span></div>";
         case UI_NUMBER:
             return "<input style='color:black; " + data.elementStyle + "' id='num" + id +
-                "' type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
+                "' data-base-class=''" +
+                " class='" + elementClass + "'" +
+                " type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
         case UI_TEXT_INPUT:
             return "<input " + inputType + "style='color:black; " + data.elementStyle + "' id='text" + id +
-                "' value='" + data.value + "' onchange='textchange(" + id + ")' />";
+                "' data-base-class=''" +
+                " class='" + elementClass + "'" +
+                " value='" + data.value + "' onchange='textchange(" + id + ")' />";
         case UI_SELECT:
             return "<select style='color:black; " + data.elementStyle + "' id='select" + id +
-                "' onchange='selectchange(" + id + ")' />";
+                "' data-base-class=''" +
+                " class='" + elementClass + "'" +
+                " onchange='selectchange(" + id + ")' />";
         case UI_GRAPH:
-            return "<figure id='graph" + id + "'><figcaption>" + data.label + "</figcaption></figure>";
+            return "<figure id='graph" + id + "' data-base-class='' class='" + elementClass + "'><figcaption>" + data.label + "</figcaption></figure>";
         case UI_GAUGE:
             return "WILL BE A GAUGE <input style='color:black;' id='gauge" + id +
-                "' type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
+                "' data-base-class=''" +
+                " class='" + elementClass + "'" +
+                " type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
         case UI_ACCEL:
             return "ACCEL // Not implemented fully!<div class='accelerometer' id='accel" + id +
                 "' ><div class='ball" + id + "'></div><pre class='accelerometeroutput" + id + "'></pre>";

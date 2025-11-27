@@ -779,6 +779,26 @@ void ESPUIClass::setElementStyle(uint16_t id, const String& style, int clientId)
     }
 }
 
+void ESPUIClass::setElementClass(uint16_t id, const String& style, int clientId)
+{
+    Control* control = getControl(id);
+    if (control)
+    {
+        control->elementClass = style;
+        updateControl(control, clientId);
+    }
+}
+
+void ESPUIClass::setLabelClass(uint16_t id, const String& style, int clientId)
+{
+    Control* control = getControl(id);
+    if (control)
+    {
+        control->labelClass = style;
+        updateControl(control, clientId);
+    }
+}
+
 void ESPUIClass::setInputType(uint16_t id, const String& type, int clientId)
 {
     Control* control = getControl(id);
