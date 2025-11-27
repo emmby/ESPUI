@@ -67,7 +67,7 @@ public:
     String panelStyle;
     String elementStyle;
     String elementClass;
-    String labelClass;
+    String panelClass;
     String inputType;
     Control* next;
 

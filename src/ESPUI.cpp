@@ -789,12 +789,12 @@ void ESPUIClass::setElementClass(uint16_t id, const String& style, int clientId)
     }
 }
 
-void ESPUIClass::setLabelClass(uint16_t id, const String& style, int clientId)
+void ESPUIClass::setPanelClass(uint16_t id, const String& style, int clientId)
 {
     Control* control = getControl(id);
     if (control)
     {
-        control->labelClass = style;
+        control->panelClass = style;
         updateControl(control, clientId);
     }
 }
