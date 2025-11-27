@@ -608,9 +608,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_SWITCHER:
@@ -619,10 +617,8 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    var isChecked = el.hasClass("checked");
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + (isChecked ? " checked" : "") + " " + data.elementClass);
-                }
+                var isChecked = el.hasClass("checked");
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + (isChecked ? " checked" : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_SLIDER:
@@ -632,9 +628,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_NUMBER:
@@ -643,9 +637,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_TEXT_INPUT:
@@ -654,9 +646,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 if (data.hasOwnProperty('inputType')) {
                     el.attr("type", data.inputType);
                 }
@@ -668,9 +658,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_BUTTON:
@@ -680,9 +668,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
 
             case UPDATE_PAD:
@@ -694,9 +680,7 @@ function start() {
                 if (data.hasOwnProperty('elementStyle')) {
                     el.attr("style", data.elementStyle);
                 }
-                if (data.hasOwnProperty('elementClass')) {
-                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
-                }
+                el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 break;
             case UPDATE_ACCEL:
                 break;
@@ -817,13 +801,11 @@ function start() {
                 $("#id" + data.id).attr("style", data.panelStyle);
             }
 
-            if (data.hasOwnProperty('panelClass')) {
-                var el = $("#id" + data.id);
-                var oldClass = el.data("last-panel-class");
-                if (oldClass) el.removeClass(oldClass);
-                el.addClass(data.panelClass);
-                el.data("last-panel-class", data.panelClass);
-            }
+            var el = $("#id" + data.id);
+            var oldClass = el.data("last-panel-class");
+            if (oldClass) el.removeClass(oldClass);
+            el.addClass(data.panelClass);
+            el.data("last-panel-class", data.panelClass);
 
             if (data.hasOwnProperty('visible')) {
                 if (data['visible'])

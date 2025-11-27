@@ -784,7 +784,7 @@ void ESPUIClass::setElementClass(uint16_t id, const String& style, int clientId)
     Control* control = getControl(id);
     if (control)
     {
-        control->elementClass = style.isEmpty() ? " " : style;
+        control->elementClass = style;
         updateControl(control, clientId);
     }
 }
@@ -794,7 +794,7 @@ void ESPUIClass::setPanelClass(uint16_t id, const String& style, int clientId)
     Control* control = getControl(id);
     if (control)
     {
-        control->panelClass = style.isEmpty() ? " " : style;
+        control->panelClass = style;
         updateControl(control, clientId);
     }
 }
