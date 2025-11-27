@@ -66,6 +66,8 @@ public:
     uint16_t parentControl;
     String panelStyle;
     String elementStyle;
+    String elementClass;
+    String panelClass;
     String inputType;
     Control* next;
 

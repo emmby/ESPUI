@@ -193,6 +193,8 @@ public:
 
     void setPanelStyle(uint16_t id, const String& style, int clientId = -1);
     void setElementStyle(uint16_t id, const String& style, int clientId = -1);
+    void setElementClass(uint16_t id, const String& style, int clientId = -1);
+    void setPanelClass(uint16_t id, const String& style, int clientId = -1);
     void setInputType(uint16_t id, const String& type, int clientId = -1);
 
     void setPanelWide(uint16_t id, bool wide);
