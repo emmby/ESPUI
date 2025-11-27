@@ -609,10 +609,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -623,10 +620,8 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    var isChecked = el.hasClass("checked");
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + (isChecked ? " checked" : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -638,10 +633,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -652,10 +644,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -666,10 +655,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 if (data.hasOwnProperty('inputType')) {
                     el.attr("type", data.inputType);
@@ -683,10 +669,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -698,10 +681,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
 
@@ -715,10 +695,7 @@ function start() {
                     el.attr("style", data.elementStyle);
                 }
                 if (data.hasOwnProperty('elementClass')) {
-                    var oldClass = el.data("last-element-class");
-                    if (oldClass) el.removeClass(oldClass);
-                    el.addClass(data.elementClass);
-                    el.data("last-element-class", data.elementClass);
+                    el.attr("class", (el.attr("data-base-class") ? el.attr("data-base-class") : "") + " " + data.elementClass);
                 }
                 break;
             case UPDATE_ACCEL:
@@ -1110,18 +1087,20 @@ var elementHTML = function (data) {
     switch (data.type) {
         case UI_LABEL:
             return "<span id='l" + id + "' " + elementStyle +
-                " class='label label-wrap" + elementClass + "'>" + data.value + "</span>";
+                " data-base-class='label label-wrap' class='label label-wrap" + elementClass + "'>" + data.value + "</span>";
         case UI_FILEDISPLAY:
             return "<textarea id='fd" + id + "' rows='4' " + elementStyle +
                 " class='label label-wrap'>" + "</textarea>";
         case UI_BUTTON:
             return "<button id='btn" + id + "' " + elementStyle +
+                " data-base-class=''" +
                 " class='" + elementClass + "'" +
                 " onmousedown='buttonclick(" + id + ", true)'" +
                 " onmouseup='buttonclick(" + id + ", false)'>" +
                 data.value + "</button>";
         case UI_SWITCHER:
             return "<label id='sl" + id + "' " + elementStyle +
+                " data-base-class='switch " + (data.hasOwnProperty('vertical') ? " vert-switcher " : "") + "'" +
                 " class='switch " + (data.value == "1" ? "checked" : "") +
                 (data.hasOwnProperty('vertical') ? " vert-switcher " : "") + elementClass +
                 "'>" +
@@ -1150,24 +1129,28 @@ var elementHTML = function (data) {
                 (data.hasOwnProperty('vertical') ? " vert-slider " : "") +
                 "'>" +
                 "<input id='sl" + id + "' type='range' min='0' max='100' value='" + data.value + "' " +
-                elementStyle + " class='range-slider__range" + elementClass + "'><span class='range-slider__value'>" +
+                elementStyle + " data-base-class='range-slider__range' class='range-slider__range" + elementClass + "'><span class='range-slider__value'>" +
                 data.value + "</span></div>";
         case UI_NUMBER:
             return "<input style='color:black; " + data.elementStyle + "' id='num" + id +
+                "' data-base-class=''" +
                 " class='" + elementClass + "'" +
                 " type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
         case UI_TEXT_INPUT:
             return "<input " + inputType + "style='color:black; " + data.elementStyle + "' id='text" + id +
+                "' data-base-class=''" +
                 " class='" + elementClass + "'" +
                 " value='" + data.value + "' onchange='textchange(" + id + ")' />";
         case UI_SELECT:
             return "<select style='color:black; " + data.elementStyle + "' id='select" + id +
+                "' data-base-class=''" +
                 " class='" + elementClass + "'" +
                 " onchange='selectchange(" + id + ")' />";
         case UI_GRAPH:
-            return "<figure id='graph" + id + "' class='" + elementClass + "'><figcaption>" + data.label + "</figcaption></figure>";
+            return "<figure id='graph" + id + "' data-base-class='' class='" + elementClass + "'><figcaption>" + data.label + "</figcaption></figure>";
         case UI_GAUGE:
             return "WILL BE A GAUGE <input style='color:black;' id='gauge" + id +
+                "' data-base-class=''" +
                 " class='" + elementClass + "'" +
                 " type='number' value='" + data.value + "' onchange='numberchange(" + id + ")' />";
         case UI_ACCEL:
