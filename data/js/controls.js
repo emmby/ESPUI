@@ -801,12 +801,6 @@ function start() {
                 $("#id" + data.id).attr("style", data.panelStyle);
             }
 
-            var el = $("#id" + data.id);
-            var oldClass = el.data("last-panel-class");
-            if (oldClass) el.removeClass(oldClass);
-            el.addClass(data.panelClass);
-            el.data("last-panel-class", data.panelClass);
-
             if (data.hasOwnProperty('visible')) {
                 if (data['visible'])
                     $("#id" + data.id).show();
@@ -814,16 +808,14 @@ function start() {
                     $("#id" + data.id).hide();
             }
 
+            var colorCls = colorClass(data.color);
             if (data.type == UPDATE_SLIDER) {
-                element.removeClass(
-                    "slider-turquoise slider-emerald slider-peterriver slider-wetasphalt slider-sunflower slider-carrot slider-alizarin"
-                );
-                element.addClass("slider-" + colorClass(data.color));
-            } else {
-                element.removeClass(
-                    "turquoise emerald peterriver wetasphalt sunflower carrot alizarin"
-                );
-                element.addClass(colorClass(data.color));
+                colorCls = "slider-" + colorCls;
+            }
+
+            var base = element.attr("data-base-class");
+            if (base) {
+                element.attr("class", base + " " + colorCls + " " + data.panelClass);
             }
 
             processEnabled(data);
@@ -1014,6 +1006,7 @@ var rangeSlider = function (isDiscrete) {
 var addToHTML = function (data) {
     panelStyle = data.hasOwnProperty('panelStyle') ? " style='" + data.panelStyle + "' " : "";
     panelwide = data.hasOwnProperty('wide') ? "wide" : "";
+    panelBase = "two columns " + panelwide + " card tcenter";
     panelClass = data.hasOwnProperty('panelClass') ? " " + data.panelClass + " " : "";
 
     if (!data.hasOwnProperty('parentControl') || $("#tab" + data.parentControl).length > 0) {
@@ -1037,7 +1030,7 @@ var addToHTML = function (data) {
             case UI_GAUGE:
             case UI_ACCEL:
             case UI_FILEDISPLAY:
-                html = "<div id='id" + data.id + "' " + panelStyle + " class='two columns " + panelwide + " card tcenter " +
+                html = "<div id='id" + data.id + "' " + panelStyle + " data-base-class='" + panelBase + "' class='" + panelBase + " " +
                     colorClass(data.color) + panelClass + "'><h5>" + data.label + "</h5><hr/>" +
                     elementHTML(data) +
                     "</div>";
